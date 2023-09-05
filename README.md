@@ -1,10 +1,39 @@
 # GraphInsight
 
 ## Tabla de Contenidos
+- [Creación de un Dataset Sintético](#Creación-de-un-Dataset-Sintético)
 - [Descripción del Problema](#descripción-del-problema)
 - [Componentes Clave](#componentes-clave)
   - [Grafo Bipartito](#grafo-bipartito)
   - [Clase `RecomendationSystem`](#clase-recomendationsystem)
+
+## Creación de un Dataset Sintético
+
+En esta sección, se explica cómo crear un dataset sintético utilizando Python y Pandas. Este dataset se puede utilizar para pruebas y experimentación en proyectos de recomendación u otros escenarios donde se requiera un conjunto de datos ficticio.
+
+## Creación de un Dataset Sintético
+
+```python
+import pandas as pd
+import random
+
+# Crear una lista de clientes y productos aleatorios
+clientes = [f'Cliente{i}' for i in range(1, 1001)]  # Generar 1000 clientes
+productos = [f'Producto{i}' for i in range(1, 21)]  # Generar 20 productos
+
+# Generar relaciones aleatorias
+relaciones = []
+for _ in range(5000):
+    cliente = random.choice(clientes)
+    producto = random.choice(productos)
+    relaciones.append((cliente, producto))
+
+# Crear un DataFrame de pandas
+df = pd.DataFrame(relaciones, columns=['source', 'target'])
+
+# Guardar el DataFrame en un archivo CSV
+df.to_csv('dataset.csv', index=False, sep=';')
+```
 
 ## Descripción del Problema
 
