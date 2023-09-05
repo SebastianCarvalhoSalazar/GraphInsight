@@ -11,18 +11,18 @@ class Simplegui:
         theme('DarkTeal4')  # Puedes elegir un tema que te guste
 
         SetOptions(
-            icon='icono.png',  # Cambiar 'icono.png' al nombre de tu archivo de icono
+            icon='logo.ico',  # Cambiar 'icono.png' al nombre de tu archivo de icono
             button_color=('#ffffff', '#108F5C'),  # Color del texto y color del fondo del botón
             background_color='#162022',  # Color de fondo de la ventana
             text_element_background_color='#162022',  # Color de fondo del texto
             text_color='#ffffff',  # Color del texto
             element_padding=(10, 5),  # Espaciado del elemento
             border_width=2,
-            font=('Segoe Ui', 10)
+            font=('Montserrat', 12)  # Cambiar la fuente a Montserrat y el tamaño
         )
 
         layout = [
-            [Text("Seleccione un archivo:", font=('Segoe Ui', 12))],
+            [Text("Seleccione un archivo:", font=('Montserrat', 14))],  # Cambiar el tamaño de la fuente
             [Button("Examinar", size=(20, 1))],
             [Button("Salir", size=(20, 1))],
         ]
@@ -32,7 +32,7 @@ class Simplegui:
         while True:
             event, values = window.read()
 
-            if event == None or event == "Salir":
+            if event is None or event == "Salir":
                 break
             elif event == "Examinar":
                 try:
