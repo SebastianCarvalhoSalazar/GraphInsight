@@ -6,6 +6,7 @@
 - [Componentes Clave](#componentes-clave)
   - [Grafo Bipartito](#grafo-bipartito)
   - [Clase: RecomendationSystem](#clase-recomendationsystem)
+- [Dependencias](#Dependencias)
 
 ## Creación de un Dataset Sintético
 
@@ -60,3 +61,13 @@ La clase `RecomendationSystem` contiene los principales métodos para construir 
 - `_recommend(G, from_user, to_user)`: Genera recomendaciones de productos para un usuario en función de las diferencias en sus interacciones con productos.
 
 - `_predict(df, G)`: Realiza recomendaciones para los usuarios utilizando el grafo bipartito construido y los datos de interacción proporcionados en un DataFrame.
+
+## Dependencias
+
+Este código depende de las siguientes bibliotecas de Python:
+
+- **collections**: Utilizada para `defaultdict` y `Counter`.
+- **networkx**: Usada para la construcción y análisis del grafo bipartito.
+- **numpy**: Necesaria para realizar operaciones numéricas.
+- **pandas**: Utilizada en la manipulación de datos.
+- **statistics**: Usada para calcular la moda.
