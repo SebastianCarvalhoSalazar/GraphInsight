@@ -5,7 +5,7 @@
 - [Descripción del Problema](#descripción-del-problema)
 - [Componentes Clave](#componentes-clave)
   - [Grafo Bipartito](#grafo-bipartito)
-  - [Clase `RecomendationSystem`](#clase-recomendationsystem)
+  - [Clase: RecomendationSystem](#clase-recomendationsystem)
 
 ## Creación de un Dataset Sintético
 
