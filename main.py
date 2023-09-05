@@ -25,5 +25,5 @@ if __name__ == '__main__':
     utils = Utils()
     recomendationsystem = RecomendationSystem()
 
-    filename = simplegui._dirfile('.csv','Import CSV UTF-8 File:','CVS Files','*.csv')
+    filename = simplegui._dirfile('.csv','Importar archivo CSV UTF-8:','CVS Files','*.csv')
     main(filename)
