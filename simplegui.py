@@ -1,35 +1,49 @@
-from PySimpleGUI import Popup, SetOptions, PopupGetFile, theme
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from PySimpleGUI import Popup, SetOptions, PopupGetFile, theme, Text, Button, Window
 
 class Simplegui:
-
     def _dirfile(self, valid_format, title, file_type, file_format):
-
         VALID_FORMAT = valid_format
         TITLE = title
         FILE_TYPE = file_type
         FILE_FORMAT = file_format
 
-        logger.info('Select a file...')
+        # Cambiar el tema y configurar los colores y estilos
+        theme('DarkTeal4')  # Puedes elegir un tema que te guste
 
-        theme('Dark')
-        SetOptions(icon='app.ico', button_color=('#E9E9E9','#126B79'), background_color = '#E7E0E1',
-                   border_width=2, text_element_background_color='#E7E0E1', text_color='Black', use_ttk_buttons=True,
-                   font=('Segoe Ui',10))
+        SetOptions(
+            icon='icono.png',  # Cambiar 'icono.png' al nombre de tu archivo de icono
+            button_color=('#ffffff', '#108F5C'),  # Color del texto y color del fondo del botón
+            background_color='#162022',  # Color de fondo de la ventana
+            text_element_background_color='#162022',  # Color de fondo del texto
+            text_color='#ffffff',  # Color del texto
+            element_padding=(10, 5),  # Espaciado del elemento
+            border_width=2,
+            font=('Segoe Ui', 10)
+        )
 
-        try:
-            filename = PopupGetFile(TITLE,title='Data Scrubber', no_window = False, file_types=((FILE_TYPE,FILE_FORMAT), ))
-        except:
-            Popup('Something Went Wrong X__X', keep_on_top=True)
+        layout = [
+            [Text("Seleccione un archivo:", font=('Segoe Ui', 12))],
+            [Button("Examinar", size=(20, 1))],
+            [Button("Salir", size=(20, 1))],
+        ]
 
-        if filename == None:
-            Popup('No valid filename', keep_on_top=True)
-            exit()
-        elif (filename[-4:] == valid_format or filename[-4:] == valid_format.upper()):
-            return filename
-        else:
-            Popup('Select a .csv file', keep_on_top=True)
-            return exit()
+        window = Window("GraphInsight", layout, finalize=True)  # Cambiar el nombre de la ventana
+
+        while True:
+            event, values = window.read()
+
+            if event == None or event == "Salir":
+                break
+            elif event == "Examinar":
+                try:
+                    filename = PopupGetFile(TITLE, title='GraphInsight', no_window=False,
+                                            file_types=((FILE_TYPE, FILE_FORMAT),))
+                    if filename and (filename[-4:] == valid_format or filename[-4:] == valid_format.upper()):
+                        window.close()
+                        return filename
+                    else:
+                        Popup('Seleccione un archivo .csv válido', keep_on_top=True)
+                except Exception as e:
+                    Popup(f'Algo salió mal: {str(e)}', keep_on_top=True)
+
+        window.close()

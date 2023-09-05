@@ -12,9 +12,10 @@ def main(filename):
     logger.info('_______START_______')
     df = utils._read_data(filename)
     G = recomendationsystem._buildGraph(df)
-    df = recomendationsystem._predict(df, G)
+    df,df1 = recomendationsystem._predict(df, G)
     utils._save_data(df, 'output/Recommendations')
-    utils._successful_process("¡PROCESS FINISHED SUCCESSFULLY!")
+    utils._save_data(df1, 'output/SimilarUsers')
+    utils._successful_process("!FINALIZADO CON EXITO!")
     print(df)
     return print('_______END_______')
 

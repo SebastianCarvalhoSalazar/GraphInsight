@@ -3,6 +3,7 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 from statistics import mode
+from collections import Counter
 from utils import Utils
 utils = Utils()
 
@@ -65,6 +66,7 @@ class RecomendationSystem:
 
     def _predict(self, df, G):
         products = {}
+        users = {}
         keys = list(set(df['source'].values.tolist()))
         user_nodes = self._get_nodes_from_partition(G, 'User')
         project_nodes = self._get_nodes_from_partition(G, 'Product')
@@ -73,11 +75,14 @@ class RecomendationSystem:
             similar_users = self._most_similar_users(G, key, user_nodes, project_nodes)
             recommendProducts = [self._recommend(G, similarUsers, key) for similarUsers in similar_users]
             recommendProducts = [product for Recommendations in recommendProducts for product in Recommendations]
-            products[key] = mode(recommendProducts) if len(recommendProducts) > 0 else "NR"
-            print(f"Usuario: {key} --> Usuarios Similares: {similar_users} --> Productos Recomendados: {recommendProducts}")
-
-        df = pd.DataFrame(products,index=[0]).T
-        df.columns = ["Recommendations"]
-        df['Nombre'] = df.index
-
-        return df
+            if len(recommendProducts) > 0:
+                freqRecommendProducts = Counter(recommendProducts)
+                sortFreqRecommendProducts = sorted(freqRecommendProducts.items(), key=lambda x: x[1], reverse=True)
+                products[key]= [item[0] for item in sortFreqRecommendProducts]
+                users[key] = similar_users
+                print(f"Usuario: {key} --> Usuarios Similares: {similar_users} --> Productos Recomendados: {recommendProducts}")
+            else:
+                pass
+        df = pd.DataFrame.from_dict(products, orient='index').fillna('NA')
+        df1 = pd.DataFrame.from_dict(users, orient='index').fillna('NA')
+        return df, df1
